@@ -11,6 +11,10 @@ function bindEvents() {
     $courseList.addEventListener('click', addCourse)
     $carrito.addEventListener('click', deleteCourse)
     $btnClean.addEventListener('click', cleanCar)
+    document.addEventListener('DOMContentLoaded', () => {
+        carArticles = JSON.parse(localStorage.getItem('cart')) || [];
+        htmlCar()
+    })
 }
 
 // Functions
@@ -68,6 +72,12 @@ function htmlCar() {
         `
         $carContainer.appendChild(row)
     })
+
+    updateLocalStorage()
+}
+
+function updateLocalStorage() {
+    localStorage.setItem('cart', JSON.stringify(carArticles))
 }
 
 function cleanHtml() {
@@ -87,5 +97,6 @@ function deleteCourse(e) {
 
 function cleanCar() {
     carArticles = []
+    localStorage.clear()
     cleanHtml()
 }
